@@ -217,7 +217,7 @@ function Home({ showNotification }: HomeProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Get Started</h2>
-            <p className="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-4xl">Join our community today</p>
+            <p className="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-4xl">Join our community now</p>
             <div className="mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
                 <button 
