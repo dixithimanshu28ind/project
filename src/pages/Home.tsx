@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Menu, 
   X, 
@@ -24,6 +24,7 @@ function Home({ showNotification }: HomeProps) {
   const { isAuthenticated, user, logout } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const productsDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check if we have a success message in the location state
@@ -33,6 +34,19 @@ function Home({ showNotification }: HomeProps) {
       window.history.replaceState({}, document.title);
     }
   }, [location, showNotification]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (productsDropdownRef.current && !productsDropdownRef.current.contains(event.target as Node)) {
+        setIsProductsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -79,7 +93,7 @@ function Home({ showNotification }: HomeProps) {
                 <Link to="/#contact" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                   Contact
                 </Link>
-                <div className="relative">
+                <div className="relative" ref={productsDropdownRef}>
                   <button 
                     onClick={toggleProducts}
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
@@ -167,7 +181,8 @@ function Home({ showNotification }: HomeProps) {
                     >
                       Logout
                     </button>
-                  </div> </div>
+                  </div>
+                </div>
               ) : (
                 <button 
                   onClick={openSignInModal}

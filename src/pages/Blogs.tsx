@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Menu, 
   X, 
@@ -26,6 +26,20 @@ function Blogs() {
   });
   
   const { isAuthenticated, user, logout } = useAuthStore();
+  const productsDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (productsDropdownRef.current && !productsDropdownRef.current.contains(event.target as Node)) {
+        setIsProductsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -92,7 +106,7 @@ function Blogs() {
                 <Link to="/#contact" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                   Contact
                 </Link>
-                <div className="relative">
+                <div className="relative" ref={productsDropdownRef}>
                   <button 
                     onClick={toggleProducts}
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
@@ -283,7 +297,7 @@ function Blogs() {
           </nav>
           <div className="mt-8 flex justify-center space-x-6">
             <a href="#twitter" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Twitter</span>
+               <span className="sr-only">Twitter</span>
               <Twitter className="h-6 w-6" />
             </a>
             <a href="#instagram" className="text-gray-400 hover:text-gray-500">
