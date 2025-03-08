@@ -241,7 +241,7 @@ function Home({ showNotification }: HomeProps) {
       <div className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Connect With me</h2>
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Connect With US</h2>
             <p className="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-4xl">Follow me on</p>
             <div className="mt-8 flex justify-center space-x-6">
               <a href="#twitter" className="text-gray-400 hover:text-gray-500">
